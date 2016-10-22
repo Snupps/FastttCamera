@@ -10,4 +10,4 @@
 #import <FastttCameraFramework/FastttCameraInterface.h>
 #import <FastttCameraFramework/FastttCameraTypes.h>
 #import <FastttCameraFramework/FastttCapturedImage.h>
-#import <FastttCameraFramework/UIViewController+FastttCamera>
+#import <FastttCameraFramework/UIViewController+FastttCamera.h>
