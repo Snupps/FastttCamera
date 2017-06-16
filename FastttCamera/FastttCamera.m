@@ -312,10 +312,13 @@
         AVCaptureDeviceInput *oldInput = [_session.inputs lastObject];
         AVCaptureDeviceInput *newInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
         
-        [_session beginConfiguration];
-        [_session removeInput:oldInput];
-        [_session addInput:newInput];
-        [_session commitConfiguration];
+        
+        if (newInput && [_session canAddInput:newInput]) {
+            [_session beginConfiguration];
+            [_session removeInput:oldInput];
+            [_session addInput:newInput];
+            [_session commitConfiguration];
+        }
     }
     
     [self setCameraFlashMode:_cameraFlashMode];
@@ -438,6 +441,10 @@
                 
 #if !TARGET_IPHONE_SIMULATOR
                 AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+                if (!deviceInput || ![_session canAddInput:deviceInput]) {
+                    return;
+                }
+                
                 [_session addInput:deviceInput];
                 
                 switch (device.position) {
@@ -460,6 +467,10 @@
                 
                 _stillImageOutput = [AVCaptureStillImageOutput new];
                 _stillImageOutput.outputSettings = outputSettings;
+                
+                if (!_stillImageOutput || ![_session canAddOutput:_stillImageOutput]) {
+                    return;
+                }
                 
                 [_session addOutput:_stillImageOutput];
                 
