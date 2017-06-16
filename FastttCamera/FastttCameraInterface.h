@@ -347,6 +347,14 @@
 - (void)cameraController:(id<FastttCameraInterface>)cameraController didFinishNormalizingCapturedImage:(FastttCapturedImage *)capturedImage;
 
 /**
+ *  Called when the camera controller has failed to capture image.
+ *
+ *  @param cameraController The FastttCamera instance that captured the photo.
+ *
+ */
+- (void)cameraControllerDidFailToCapture:(id<FastttCameraInterface>)cameraController;
+
+/**
  *  Called when the camera controller asks for permission to access the user's camera and is denied.
  *
  *  @param cameraController The FastttCamera instance.

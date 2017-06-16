@@ -526,6 +526,14 @@
     
     AVCaptureConnection *videoConnection = [self _currentCaptureConnection];
     
+    if (!videoConnection || !videoConnection.isEnabled) {
+        if ([self.delegate respondsToSelector:@selector(cameraControllerDidFailToCapture:)]) {
+            [self.delegate cameraControllerDidFailToCapture:self];
+        }
+        
+        return;
+    }
+    
     if ([videoConnection isVideoOrientationSupported]) {
         [videoConnection setVideoOrientation:[self _currentCaptureVideoOrientationForDevice]];
     }
