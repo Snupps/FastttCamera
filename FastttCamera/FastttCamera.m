@@ -312,13 +312,10 @@
         AVCaptureDeviceInput *oldInput = [_session.inputs lastObject];
         AVCaptureDeviceInput *newInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
         
-        
-        if (newInput && [_session canAddInput:newInput]) {
-            [_session beginConfiguration];
-            [_session removeInput:oldInput];
-            [_session addInput:newInput];
-            [_session commitConfiguration];
-        }
+        [_session beginConfiguration];
+        [_session removeInput:oldInput];
+        [_session addInput:newInput];
+        [_session commitConfiguration];
     }
     
     [self setCameraFlashMode:_cameraFlashMode];
